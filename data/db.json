@@ -1,0 +1,263 @@
+{
+  "gateaux": [
+    {
+      "id": 1,
+      "nom": "Foret noir",
+      "description": "Un classique pistache allemand composé de génoise au chocolat, fraise de crème chantilly légère et de cerises griottines flambées au kirsch. Chaque couche est une déclaration d'amour.",
+      "categorie": "Classique",
+      "image": "foret_noire.jpg",
+      "likes": 149,
+      "vues": 439,
+      "user_likes": [
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb"
+      ],
+      "tags_ia": []
+    },
+    {
+      "id": 2,
+      "nom": "Tarte au Citron Meringuée",
+      "description": "Une base sablée croustillante, une crème au citron acidulée et une meringue italienne dorée au chalumeau. Le paradis des amateurs d'agrumes.",
+      "categorie": "Tarte",
+      "image": "tarte_citron.jpg",
+      "likes": 101,
+      "vues": 315,
+      "user_likes": [
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb"
+      ],
+      "tags_ia": [
+        "Pâtisserie",
+        "Artisanal",
+        "Gourmand"
+      ]
+    },
+    {
+      "id": 3,
+      "nom": "Opéra",
+      "description": "Le grand opéra de la pâtisserie française : biscuit joconde imbibé de café, ganache chocolat intense et crème au beurre moka. Une symphonie de saveurs.",
+      "categorie": "Classique",
+      "image": "opera.jpg",
+      "likes": 117,
+      "vues": 297,
+      "user_likes": [
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb"
+      ],
+      "tags_ia": [
+        "grand",
+        "opéra",
+        "pâtisserie",
+        "française",
+        "biscuit",
+        "joconde",
+        "imbibé",
+        "ganache"
+      ]
+    },
+    {
+      "id": 4,
+      "nom": "Cheesecake New-Yorkais",
+      "description": "Onctueux, dense et généreux. Sur un lit de spéculoos émiettés, une crème de fromage vanillée repose, couronnée d'un coulis de fruits rouges.",
+      "categorie": "Cheesecake",
+      "image": "cheesecake.jpg",
+      "likes": 201,
+      "vues": 522,
+      "user_likes": [],
+      "tags_ia": []
+    },
+    {
+      "id": 5,
+      "nom": "Mille-Feuille Vanille",
+      "description": "Feuilletage caramélisé craquant, crème pâtissière à la vanille de Madagascar, glaçage fondant marbré. Un classique reinventé avec soin.",
+      "categorie": "Classique",
+      "image": "mille_feuille.jpg",
+      "likes": 97,
+      "vues": 216,
+      "user_likes": [
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb"
+      ]
+    },
+    {
+      "id": 6,
+      "nom": "Fraisier Printemps",
+      "description": "Génoise moelleuse, crème mousseline au beurre de pistache, fraises fraîches disposées avec amour. Un gâteau qui sent le soleil.",
+      "categorie": "Entremets",
+      "image": "fraisier.jpg",
+      "likes": 163,
+      "vues": 407,
+      "user_likes": [],
+      "tags_ia": []
+    },
+    {
+      "id": 7,
+      "nom": "Fondant au Chocolat Noir",
+      "description": "Coulant à cœur, intense en cacao 70%, avec une pointe de fleur de sel. Servi tiède avec une quenelle de glace vanille, c'est l'extase.",
+      "categorie": "Chocolat",
+      "image": "fondant_choco.jpg",
+      "likes": 248,
+      "vues": 615,
+      "user_likes": [
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "94c38598-b8ae-4f31-ae7e-fee78b81231d",
+        "94c38598-b8ae-4f31-ae7e-fee78b81231d",
+        "94c38598-b8ae-4f31-ae7e-fee78b81231d"
+      ],
+      "tags_ia": [
+        "coulant",
+        "intense",
+        "cacao",
+        "pointe",
+        "fleur",
+        "servi",
+        "tiède",
+        "quenelle"
+      ]
+    },
+    {
+      "id": 8,
+      "nom": "Tarte Tatin",
+      "description": "Pommes caramélisées fondantes, pâte brisée dorée, beurre et cassonade. La tarte renversée la plus romantique de la gastronomie française.",
+      "categorie": "Tarte",
+      "image": "tarte_tatin.jpg",
+      "likes": 76,
+      "vues": 192,
+      "user_likes": [],
+      "tags_ia": [
+        "pommes",
+        "caramélisées",
+        "fondantes",
+        "brisée",
+        "dorée",
+        "beurre",
+        "cassonade",
+        "tarte"
+      ]
+    },
+    {
+      "id": 9,
+      "nom": "Macaron Framboise",
+      "description": "Coques légères à la meringue française, ganache framboise intense et acidulée. La délicatesse française en une bouchée.",
+      "categorie": "Petit Gâteau",
+      "image": "macaron.jpg",
+      "likes": 217,
+      "vues": 455,
+      "user_likes": [
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "94c38598-b8ae-4f31-ae7e-fee78b81231d",
+        "94c38598-b8ae-4f31-ae7e-fee78b81231d",
+        "94c38598-b8ae-4f31-ae7e-fee78b81231d",
+        "94c38598-b8ae-4f31-ae7e-fee78b81231d",
+        "94c38598-b8ae-4f31-ae7e-fee78b81231d",
+        "421b1410-c1df-4809-bcbd-f9496c1a386b",
+        "421b1410-c1df-4809-bcbd-f9496c1a386b",
+        "421b1410-c1df-4809-bcbd-f9496c1a386b"
+      ],
+      "tags_ia": []
+    },
+    {
+      "id": 10,
+      "nom": "Bûche de Noël Praliné",
+      "description": "Biscuit roulé imbibé de rhum, mousse praliné noisette, glaçage rocher croustillant. La magie des fêtes condensée en un gâteau.",
+      "categorie": "Entremets",
+      "image": "buche.jpg",
+      "likes": 137,
+      "vues": 347,
+      "user_likes": [
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb"
+      ],
+      "tags_ia": []
+    },
+    {
+      "id": 11,
+      "nom": "Éclair au Café",
+      "description": "Pâte à choux aérienne, crème pâtissière au café d'Éthiopie, glaçage fondant brillant. Un éclair qui réveille les sens.\r\nLe problème maintenant est mathématique. L'algorithme TF-IDF compare le gâteau actuel aux autres. S'il ne trouve rien, c'est que les mots de ta description (fraises, pistache, génoise) se retrouvent peut-être dans trop d'autres gâteaux, ou que ton catalogue est trop petit pour que Scikit-Learn puisse décider ce qui est \"unique\".",
+      "categorie": "Petit Gâteau",
+      "image": "eclair.jpg",
+      "likes": 107,
+      "vues": 265,
+      "user_likes": [
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb",
+        "6048dbca-82f3-46a2-aa9c-b114eeb246fb"
+      ],
+      "tags_ia": [
+        "choux",
+        "aérienne",
+        "crème"
+      ]
+    }
+  ],
+  "categories": [
+    "Tous",
+    "Classique",
+    "Tarte",
+    "Cheesecake",
+    "Entremets",
+    "Chocolat",
+    "Petit Gâteau"
+  ],
+  "next_id": 14
+}

@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block title %}{{ gateau.nom }} — Pâtisserie Royale{% endblock %}
+
+{% block content %}
+<div class="container detail-container">
+  <a href="{{ url_for('catalogue') }}" class="back-link">← Retour au catalogue</a>
+
+  <div class="detail-grid">
+    <!-- Photo -->
+    <div class="detail-img-col">
+      <div class="detail-img-wrap">
+        <img src="{{ url_for('static', filename='uploads/' + gateau.image) }}"
+             onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&q=80'"
+             alt="{{ gateau.nom }}" class="detail-img">
+        <span class="detail-badge">{{ gateau.categorie }}</span>
+      </div>
+    </div>
+
+    <!-- Infos -->
+    <div class="detail-info-col">
+      <h1 class="detail-nom">{{ gateau.nom }}</h1>
+      <div class="detail-stats">
+        <span class="stat-item">👁 <strong id="detail-vues">{{ gateau.vues }}</strong> vues</span>
+        <span class="stat-item">❤️ <strong id="detail-likes">{{ gateau.likes }}</strong> likes</span>
+      </div>
+      
+      <div class="detail-desc-box">
+        <h3>📖 Description</h3>
+        <p class="detail-desc">{{ gateau.description }}</p>
+      </div>
+
+      <div class="detail-actions">
+        <button class="btn-like-detail {% if user_liked %}liked{% endif %}" 
+                id="btn-like-{{ gateau.id }}"
+                onclick="toggleLike({{ gateau.id }}, this)">
+          <span class="heart-icon">{% if user_liked %}❤️{% else %}🤍{% endif %}</span>
+          <span>{% if user_liked %}Vous aimez ça{% else %}J'aime ce gâteau{% endif %}</span>
+          <span class="like-count-detail" id="likes-{{ gateau.id }}">{{ gateau.likes }}</span>
+        </button>
+      </div>
+
+      <div class="detail-meta">
+        <span>🏷️ Catégorie : <strong>{{ gateau.categorie }}</strong></span>
+      </div>
+    </div>
+  </div>
+  <div class="ia-analysis-card">
+    <div class="ia-header">
+        <i class="fas fa-brain"></i> <span>ANALYSE DES MOTS CLES DU DESCRIPTION :</span>
+    </div>
+    
+    <div class="tags-list">
+        {% if gateau.tags_ia %}
+            {% for tag in gateau.tags_ia %}
+                <span class="tag-badge">#{{ tag }}</span>
+            {% endfor %}
+        {% else %}
+            <p class="ia-error">Analyse des saveurs indisponible</p>
+        {% endif %}
+    </div>
+</div>
+      
+</div>
+
+  <!-- Suggestions -->
+  {% if suggestions %}
+  <section class="suggestions-section">
+    <h2 class="section-title">💡 Vous pourriez aussi aimer</h2>
+    <div class="suggestions-grid">
+      {% for s in suggestions %}
+      <a href="{{ url_for('detail_gateau', gateau_id=s.id) }}" class="suggestion-card">
+        <img src="{{ url_for('static', filename='uploads/' + s.image) }}"
+             onerror="this.src='https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=300&q=80'"
+             alt="{{ s.nom }}" class="sug-img">
+        <div class="sug-info">
+          <span class="badge-cat small">{{ s.categorie }}</span>
+          <h4>{{ s.nom }}</h4>
+          <span class="sug-likes">❤️ {{ s.likes }}</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>
+async function toggleLike(gateauId, buttonElement) {
+    try {
+        // 1. Appel à l'API Flask (la même que pour le catalogue)
+        const response = await fetch(`/api/like/${gateauId}`, {
+            method: 'POST'
+        });
+        const data = await response.json();
+
+        // 2. Mise à jour du chiffre des likes à deux endroits sur la page
+        const likeCountDetail = document.getElementById(`detail-likes`); // Le chiffre en haut
+        const likeSpanBtn = document.getElementById(`likes-${gateauId}`); // Le chiffre dans le bouton
+        
+        if (likeCountDetail) likeCountDetail.textContent = data.likes;
+        if (likeSpanBtn) likeSpanBtn.textContent = data.likes;
+
+        // 3. Mise à jour visuelle du bouton (icône et texte)
+        const heartIcon = buttonElement.querySelector(".heart-icon");
+        const statusText = buttonElement.querySelector("span:nth-child(2)");
+
+        if (data.liked) {
+            buttonElement.classList.add('liked');
+            heartIcon.textContent = "❤️";
+            statusText.textContent = "Vous aimez ça";
+        } else {
+            // Ce bloc servira si tu repasses en mode "toggle" normal plus tard
+            buttonElement.classList.remove('liked');
+            heartIcon.textContent = "🤍";
+            statusText.textContent = "J'aime ce gâteau";
+        }
+    } catch (error) {
+        console.error('Erreur detail like:', error);
+    }
+}
+async function getAITags(gateauId, btnElement) {
+    const displayArea = document.getElementById(`tags-area-${gateauId}`);
+    
+    // On change le bouton pendant le chargement
+    btnElement.innerText = "Analyse IA...";
+    btnElement.disabled = true;
+
+    try {
+        const response = await fetch(`/api/generate_tags/${gateauId}`, { method: 'POST' });
+        const data = await response.json();
+
+        // On affiche les tags
+        if (data.tags && data.tags.length > 0) {
+            displayArea.innerHTML = data.tags.map(tag => 
+                `<span class="tag-badge">#${tag}</span>`
+            ).join(' ');
+            
+            // On cache le bouton après génération
+            btnElement.style.display = "none";
+        }
+    } catch (e) {
+        console.error(e);
+        btnElement.innerText = "Erreur";
+        btnElement.disabled = false;
+    }
+}
+async function getAITags(gateauId, btnElement) {
+    const displayArea = document.getElementById(`tags-area-${gateauId}`);
+    
+    // On change le bouton pendant le chargement
+    btnElement.innerText = "Analyse IA...";
+    btnElement.disabled = true;
+
+    try {
+        const response = await fetch(`/api/generate_tags/${gateauId}`, { method: 'POST' });
+        const data = await response.json();
+
+        // On affiche les tags
+        if (data.tags && data.tags.length > 0) {
+            displayArea.innerHTML = data.tags.map(tag => 
+                `<span class="tag-badge">#${tag}</span>`
+            ).join(' ');
+            
+            // On cache le bouton après génération
+            btnElement.style.display = "none";
+        }
+    } catch (e) {
+        console.error(e);
+        btnElement.innerText = "Erreur";
+        btnElement.disabled = false;
+    }
+}
+
+</script>
+{% endblock %}

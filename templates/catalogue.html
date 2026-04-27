@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Catalogue — Pâtisserie Royale{% endblock %}
+
+{% block content %}
+<section class="catalogue-hero">
+  <div class="container">
+    <h1 class="catalogue-title">Notre Catalogue</h1>
+    <p class="catalogue-sub">Découvrez nos créations — mélangées aléatoirement pour une exploration juste et savoureuse</p>
+  </div>
+</section>
+
+<!-- Filtres par catégorie -->
+<div class="filtres-bar">
+  <div class="container filtres-inner">
+    {% for cat in categories %}
+    <a href="{{ url_for('catalogue', categorie=cat) }}" 
+       class="filtre-btn {% if cat == cat_active %}active{% endif %}">
+      {{ cat }}
+    </a>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Grille des gâteaux -->
+<section class="container catalogue-grid-section">
+  {% if gateaux %}
+  <div class="catalogue-grid">
+    {% for gateau in gateaux %}
+    <article class="gateau-card" data-id="{{ gateau.id }}">
+      <div class="card-img-wrap">
+        <img src="{{ url_for('static', filename='uploads/' + gateau.image) }}"
+             onerror="this.src='https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&q=80'"
+             alt="{{ gateau.nom }}" class="card-img">
+        <div class="card-overlay">
+          <a href="{{ url_for('detail_gateau', gateau_id=gateau.id) }}" 
+             class="btn-voir-overlay" onclick="incrementVue({{ gateau.id }})">
+            👁 Voir la description
+          </a>
+        </div>
+        <span class="badge-cat card-badge">{{ gateau.categorie }}</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-nom">{{ gateau.nom }}</h3>
+        <p class="card-desc">{{ gateau.description[:90] }}…</p>
+        <div class="card-footer">
+          <button class="btn-like {% if user_id in gateau.get('user_likes', []) %}liked{% endif %}" 
+                  id="btn-{{ gateau.id }}"
+                  onclick="toggleLike({{ gateau.id }}, this)">
+            <span class="heart-icon">❤️</span>
+            <span class="like-count" id="likes-{{ gateau.id }}">{{ gateau.likes }}</span>
+          </button>
+          <span class="vue-count">👁 {{ gateau.vues }}</span>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <p>Aucun gâteau dans cette catégorie pour l'instant.</p>
+    <a href="{{ url_for('catalogue') }}" class="btn-hero">Voir tout le catalogue</a>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
+{% block scripts %}
+<!-- <script>
+    async function toggleLike(gateauId, buttonElement) {
+        try {
+            // Envoi de la requête POST à ton API Flask
+            const response = await fetch(`/api/like/${gateauId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error('Erreur lors de la mise à jour du like');
+            }
+    
+            const data = await response.json();
+    
+            // 1. Mettre à jour le chiffre des likes
+            const likeSpan = document.getElementById(`likes-${gateauId}`);
+            if (likeSpan) {
+                likeSpan.textContent = data.likes;
+            }
+    
+            // 2. Changer l'apparence visuelle du bouton
+            if (data.liked) {
+                buttonElement.classList.add('liked');
+            } else {
+                buttonElement.classList.remove('liked');
+            }
+    
+        } catch (error) {
+            console.error('Erreur:', error);
+            alert('Impossible de liker pour le moment.');
+        }
+    }
+    
+    // Optionnel : ta fonction pour incrémenter les vues
+    async function incrementVue(gateauId) {
+        try {
+            await fetch(`/api/vue/${gateauId}`, { method: 'POST' });
+        } catch (e) {
+            console.error("Erreur vue:", e);
+        }
+    }
+    </script> -->
+    <script>
+async function toggleLike(gateauId, buttonElement) {
+    try {
+        const response = await fetch(`/api/like/${gateauId}`, {
+            method: 'POST'
+        });
+        const data = await response.json();
+
+        const likeSpan = document.getElementById(`likes-${gateauId}`);
+        if (likeSpan) {
+            likeSpan.textContent = data.likes;
+            
+            // Petite animation de "pop" pour voir le changement
+            likeSpan.style.transform = "scale(1.5)";
+            likeSpan.style.color = "#e74c3c";
+            setTimeout(() => {
+                likeSpan.style.transform = "scale(1)";
+                likeSpan.style.color = "";
+            }, 200);
+        }
+
+        buttonElement.classList.add('liked');
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+</script>
+    {% endblock %}

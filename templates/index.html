@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block title %}Accueil — Pâtisserie Royale{% endblock %}
+
+{% block content %}
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    
+    <h1 class="hero-title">La douceur est<br><em>une langue universelle</em></h1>
+    <p class="hero-sub">Chaque gâteau raconte une histoire. Laquelle vous touchera aujourd'hui&nbsp;?</p>
+    <a href="{{ url_for('catalogue') }}" class="btn-hero">Explorer le catalogue</a>
+  </div>
+  <section class="hero">
+    <div class="scroll-indicator">
+        <span>Découvrir nos spécialités</span>
+        <div class="arrow">↓</div>
+    </div>
+</section>
+  <div class="hero-decor">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+  </div>
+</section>
+
+<!-- TOP 2 -->
+<section class="section-top">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">🏆 Top 2 Adorés</h2>
+      <p class="section-sub">Les grands favoris de nos gourmands — mis à jour en temps réel selon vos likes</p>
+    </div>
+    <div class="top2-grid">
+      {% for gateau in top2 %}
+      <div class="top-card" data-rank="{{ loop.index }}">
+        <div class="top-rank">#{{ loop.index }}</div>
+        <div class="top-img-wrap">
+          <img src="{{ url_for('static', filename='uploads/' + gateau.image) }}" 
+               onerror="this.src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80'"
+               alt="{{ gateau.nom }}" class="top-img">
+          <div class="top-overlay">
+            <a href="{{ url_for('detail_gateau', gateau_id=gateau.id) }}" class="btn-voir" 
+               onclick="incrementVue({{ gateau.id }})">👁 Voir</a>
+          </div>
+        </div>
+        <div class="top-info">
+          <span class="badge-cat">{{ gateau.categorie }}</span>
+          <h3 class="top-nom">{{ gateau.nom }}</h3>
+          <p class="top-desc">{{ gateau.description[:100] }}…</p>
+          <div class="top-stats">
+            <button class="btn-like {% if request.cookies.get('liked_' + gateau.id|string) %}liked{% endif %}" 
+                    onclick="toggleLike({{ gateau.id }}, this)">
+              <span class="heart">❤️</span>
+              <span class="like-count" id="likes-{{ gateau.id }}">{{ gateau.likes }}</span>
+            </button>
+            <span class="vue-count">👁 {{ gateau.vues }} vues</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- SLIDER ALÉATOIRE -->
+<section class="section-slider">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">🎲 Découvertes du Moment</h2>
+      <p class="section-sub">Sélection aléatoire — pour que chaque gâteau ait sa chance de vous séduire</p>
+    </div>
+  </div>
+  <div class="slider-viewport">
+    <div class="slider-track" id="sliderTrack">
+      {% for gateau in slider %}
+      <div class="slide-card">
+        <img src="{{ url_for('static', filename='uploads/' + gateau.image) }}"
+             onerror="this.src='https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&q=80'"
+             alt="{{ gateau.nom }}" class="slide-img">
+        <div class="slide-body">
+          <span class="badge-cat small">{{ gateau.categorie }}</span>
+          <h4 class="slide-nom">{{ gateau.nom }}</h4>
+          <div class="slide-actions">
+            <button class="btn-like-sm" onclick="toggleLike({{ gateau.id }}, this)">
+              ❤️ <span id="likes-{{ gateau.id }}">{{ gateau.likes }}</span>
+            </button>
+            <a href="{{ url_for('detail_gateau', gateau_id=gateau.id) }}" 
+               class="btn-voir-sm" onclick="incrementVue({{ gateau.id }})">Voir →</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      <!-- Duplicate pour loop infini -->
+      {% for gateau in slider %}
+      <div class="slide-card">
+        <img src="{{ url_for('static', filename='uploads/' + gateau.image) }}"
+             onerror="this.src='https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&q=80'"
+             alt="{{ gateau.nom }}" class="slide-img">
+        <div class="slide-body">
+          <span class="badge-cat small">{{ gateau.categorie }}</span>
+          <h4 class="slide-nom">{{ gateau.nom }}</h4>
+          <div class="slide-actions">
+            <button class="btn-like-sm" onclick="toggleLike({{ gateau.id }}, this)">
+              ❤️ <span id="likes-{{ gateau.id }}-2">{{ gateau.likes }}</span>
+            </button>
+            <a href="{{ url_for('detail_gateau', gateau_id=gateau.id) }}" class="btn-voir-sm">Voir →</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  // Auto-scroll slider
+  const track = document.getElementById("sliderTrack");
+  let pos = 0;
+  const speed = 0.5;
+  function autoScroll() {
+    pos += speed;
+    const half = track.scrollWidth / 2;
+    if (pos >= half) pos = 0;
+    track.style.transform = `translateX(-${pos}px)`;
+    requestAnimationFrame(autoScroll);
+  }
+  track.addEventListener("mouseenter", () => speed_paused = true);
+  track.addEventListener("mouseleave", () => speed_paused = false);
+  autoScroll();
+
+
+  // like
+  async function toggleLike(gateauId, buttonElement) {
+      try {
+          const response = await fetch(`/api/like/${gateauId}`, {
+              method: 'POST'
+          });
+          const data = await response.json();
+  
+          // On met à jour le texte du compteur
+          const likeSpan = document.getElementById(`likes-${gateauId}`);
+          if (likeSpan) {
+              likeSpan.textContent = data.likes;
+          }
+  
+          // On change l'apparence du bouton
+          if (data.liked) {
+              buttonElement.classList.add('liked');
+          } else {
+              buttonElement.classList.remove('liked');
+          }
+          
+          // OPTIONNEL : Si tu veux que le Top 2 se réorganise tout seul 
+          // sans rafraîchir, il faudrait recharger la page ou utiliser une API.
+          // Pour ton devoir, un rafraîchissement manuel après le vote suffit souvent.
+          
+      } catch (error) {
+          console.error('Erreur:', error);
+      }
+  }
+</script>
+{% endblock %}

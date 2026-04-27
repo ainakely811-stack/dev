@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Admin — Gestion des Gâteaux{% endblock %}
+
+{% block content %}
+<div class="container admin-container">
+  <div class="admin-header">
+    <h1 class="admin-title">⚙️ Gestion des Publications</h1>
+    <a href="{{ url_for('ajouter_gateau') }}" class="btn-add">+ Ajouter un gâteau</a>
+  </div>
+
+  <div class="admin-stats">
+    <div class="stat-box">
+      <span class="stat-num">{{ gateaux|length }}</span>
+      <span class="stat-lab">Gâteaux</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">{{ gateaux|sum(attribute='likes') }}</span>
+      <span class="stat-lab">Total Likes</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num">{{ gateaux|sum(attribute='vues') }}</span>
+      <span class="stat-lab">Total Vues</span>
+    </div>
+    <div class="stat-box top-stat">
+      {% set top = gateaux|sort(attribute='likes', reverse=True)|first %}
+      <span class="stat-num">{{ top.likes }}</span>
+      <span class="stat-lab">🏆 {{ top.nom[:15] }}…</span>
+    </div>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Photo</th>
+          <th>Nom</th>
+          <th>Catégorie</th>
+          <th>❤️ Likes</th>
+          <th>👁 Vues</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for g in gateaux %}
+        <tr>
+          <td>
+            <img src="{{ url_for('static', filename='uploads/' + g.image) }}"
+                 onerror="this.src='https://images.unsplash.com/photo-1488477181946-6428a0291777?w=80&q=60'"
+                 class="admin-thumb" alt="{{ g.nom }}">
+          </td>
+          <td class="td-nom">{{ g.nom }}</td>
+          <td><span class="badge-cat small">{{ g.categorie }}</span></td>
+          <td class="td-center">
+            <span class="admin-likes">{{ g.likes }}</span>
+          </td>
+          <td class="td-center">{{ g.vues }}</td>
+          <td class="td-center">
+            <a href="{{ url_for('detail_gateau', gateau_id=g.id) }}" class="btn-action btn-view" title="Voir">👁</a>
+            <a href="{{ url_for('modifier_gateau', gateau_id=g.id) }}" class="btn-action btn-edit" title="Modifier">✏️</a>
+            <form action="{{ url_for('supprimer_gateau', gateau_id=g.id) }}" method="POST" 
+                  onsubmit="return confirm('Supprimer {{ g.nom }} ?')" style="display:inline">
+              <button type="submit" class="btn-action btn-delete" title="Supprimer">🗑️</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

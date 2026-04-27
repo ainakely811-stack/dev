@@ -1,0 +1,21 @@
+# Environnement virtuel (TRÈS IMPORTANT : ne pas envoyer les Go de bibliothèques)
+venv/
+env/
+.env
+
+# Cache Python (Fichiers temporaires créés par Python)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Dossiers d'IDE (VS Code, PyCharm)
+.vscode/
+.idea/
+
+# OS (Fichiers système inutiles)
+.DS_Store
+Thumbs.db
+
+# Données sensibles (Si tu en as)
+.env
+instance/

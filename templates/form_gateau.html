@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{{ action }} un gâteau{% endblock %}
+
+{% block content %}
+<div class="container form-container">
+  <a href="{{ url_for('admin') }}" class="back-link">← Retour à l'admin</a>
+  <h1 class="form-title">{{ action }} un Gâteau</h1>
+
+  <form method="POST" enctype="multipart/form-data" class="gateau-form">
+    <div class="form-group">
+      <label for="nom">Nom du gâteau *</label>
+      <input type="text" id="nom" name="nom" 
+             value="{{ gateau.nom if gateau else '' }}" 
+             placeholder="Ex: Fondant au Chocolat Noir" required class="form-input">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description *</label>
+      <textarea id="description" name="description" rows="5" 
+                placeholder="Décrivez les saveurs, textures, ingrédients…" 
+                required class="form-input">{{ gateau.description if gateau else '' }}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="categorie">Catégorie *</label>
+      <select id="categorie" name="categorie" required class="form-input">
+        {% for cat in categories %}
+          {% if cat != 'Tous' %}
+          <option value="{{ cat }}" {% if gateau and gateau.categorie == cat %}selected{% endif %}>{{ cat }}</option>
+          {% endif %}
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Photo du gâteau</label>
+      {% if gateau and gateau.image %}
+      <div class="current-img">
+        <img src="{{ url_for('static', filename='uploads/' + gateau.image) }}"
+             onerror="this.src='https://images.unsplash.com/photo-1488477181946-6428a0291777?w=200&q=60'"
+             alt="Photo actuelle" style="width:120px;border-radius:8px;margin-bottom:8px;">
+        <p style="font-size:0.85rem;color:var(--text-muted)">Photo actuelle — uploadez-en une nouvelle pour remplacer</p>
+      </div>
+      {% endif %}
+      <input type="file" id="image" name="image" accept="image/*" class="form-input-file"
+             onchange="previewImage(this)">
+      <div id="img-preview" class="img-preview"></div>
+    </div>
+
+    <div class="form-actions">
+      <a href="{{ url_for('admin') }}" class="btn-cancel">Annuler</a>
+      <button type="submit" class="btn-submit">{{ action }} le gâteau 🎂</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function previewImage(input) {
+  const preview = document.getElementById("img-preview");
+  preview.innerHTML = "";
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = document.createElement("img");
+      img.src = e.target.result;
+      img.style.cssText = "width:160px;border-radius:10px;margin-top:10px;box-shadow:0 4px 15px rgba(0,0,0,.2)";
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+{% endblock %}
