@@ -456,7 +456,7 @@
     transition: transform .25s;
   }
   .suggestion-card:hover { transform: translateY(-4px); }
-  .sug-img { width: 90px; margin-top: 2px; height: 90px; object-fit: cover; flex-shrink: 0; }
+  .sug-img { width: 90px; margin-top: 10px; margin-left: 10px;border-radius: 8px ; height: 90px; object-fit: cover; flex-shrink: 0; }
   .sug-info { padding: .8rem; }
   .sug-info h4 { font-family: 'Playfair Display', serif; font-size: .95rem; margin: .3rem 0 .5rem; }
   .sug-likes { font-size: .83rem; color: var(--text-muted); }
