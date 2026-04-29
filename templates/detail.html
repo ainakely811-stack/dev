@@ -65,7 +65,7 @@
   <!-- Suggestions -->
   {% if suggestions %}
   <section class="suggestions-section">
-    <h2 class="section-title">💡 Vous pourriez aussi aimer</h2>
+    <h2 class="section-title">Vous pourriez aussi aimer</h2>
     <div class="suggestions-grid">
       {% for s in suggestions %}
       <a href="{{ url_for('detail_gateau', gateau_id=s.id) }}" class="suggestion-card">
